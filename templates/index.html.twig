@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block bootstrap_css %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootswatch/dist/sandstone/bootstrap.min.css">
+
+{% endblock %}
+{% block site_title %}
+    <title>Classei Tab Druck Service</title>
+{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col">
+            <h1>Classei Tab Druck Service</h1>
+
+
+            {% block choose_print_service %}
+                <div class="row">
+                    <div class="col">
+                        <div class="card-deck">
+
+                            {{ include ('choose/tabs.html.twig',{'sheet': tab5810}) }}
+                            {{ include ('choose/tabs.html.twig',{'sheet': tab2910}) }}
+                            {{ include ('choose/tabs.html.twig',{'sheet': tab7015}) }}
+
+                        </div>
+                    </div>
+                </div>
+<!-- Noch nicht verfügbar
+                <div class="row mt-4">
+                    <div class="col">
+                        <div class="card-deck">
+
+                            {{ include ('choose/tabs.html.twig',{'sheet': label4041}) }}
+                            {{ include ('choose/tabs.html.twig',{'sheet': label4040}) }}
+
+                        </div>
+                    </div>
+                </div>
+                -->
+            {% endblock %}
+
+        </div>
+    </div>
+
+
+
+
+    <div class="row mb-5 pb-5 px-5">
+        <div class="col" id="form_container">
+
+            <h2>Vordruck {{ tab_form.name }}</h2>
+
+                {% block tab_form %}
+                {% endblock %}
+
+            </div><!-- EOF app -->
+
+        </div>
+    </div>
+</div>
+
+{% block end_of_body %}
+
+    {%  block js %}
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="templates/assets/ckeditor/ckeditor.js"></script>
+        {% endblock %}
+{% endblock %}
+</body>
+</html>

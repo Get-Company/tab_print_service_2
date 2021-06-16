@@ -1,0 +1,42 @@
+{% extends "index.html.twig" %}
+
+
+{% block js %}
+    {{ parent() }}
+    <script>{% include '/assets/js/master.js.twig' with {'max_size': tab_form.HeightOfLines} %}</script>
+{% endblock %}
+
+
+
+{% block tab_form %}
+
+        <form action="" target="_blank" method="post" name="form_{{ tab_form.id }}" id="form_{{ tab_form.id }}">
+                {% for r in range(1,tab_form.AmountOfRows) %}
+                    <div class="row mb-2">
+                        {% for c in range(1, tab_form.AmountOfColumns) %}
+                            <div class="col border p-0 m-3" style="height:{{ tab_form.FieldsHeightBrutto }}mm">
+                                {% for l in range(1, tab_form.AmountOfLines) %}
+                                    <div class="input-group tinymce_inline border-bottom {% if loop.index == 1 %}bg-light{% endif %}"
+                                         style="
+                                         {% if loop.index == 1 %}
+                                            max-height:{{ tab_form.HeightOfTitleLine * 1 }}mm;
+                                             height:{{ tab_form.HeightOfTitleLine *1 }}mm;
+                                         {% else %};
+                                                 max-height:{{ tab_form.HeightOfLines * 1 }}mm;
+                                         height:{{ tab_form.HeightOfLines *1 }}mm;
+                                                 {% endif %}
+                                                 line-height: 1">
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            <div class="mt-5">
+                <button type="submit" class="btn btn-warning">Drucken</button>
+                <button type="reset" class="btn btn-secondary">Felder leeren</button>
+            </div>
+
+        </form>
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="card">
+    <img class="card-img-top" src="{{ sheet.img_path }}{{ sheet.img_id }}" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{ sheet.Name }}</h5>
+        <p class="card-text">{{ sheet.Desc }}</p>
+        <form action="" method="Get"><input type="hidden" name="sheet" value="{{ sheet.Id }}"><button type="submit" class="btn btn-warning">Wählen</button></form>
+    </div>
+</div>

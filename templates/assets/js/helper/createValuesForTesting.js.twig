@@ -1,0 +1,21 @@
+/*
+Function for testing - sets content in ont-sizes into 2 lines
+ */
+function setContent(){
+
+    var i = 10;
+    var a = 26;
+
+    var counter = 1
+
+    for (var e in CKEDITOR.instances) {
+        var value = '<span style="font-size:' + i + 'px">Nr.'+counter +' '+ Number.parseFloat(i).toPrecision(4) + ' px</span>';
+        value += '</br>';
+        value += '<span style="font-size: '+a+'px">Nr.'+counter +' '+ Number.parseFloat(a).toPrecision(4) + ' px</span>';
+
+        CKEDITOR.instances[e].setData(value);
+        i += 0.8;
+        a -= 1;
+        counter++;
+    }
+}

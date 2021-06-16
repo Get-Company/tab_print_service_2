@@ -1,0 +1,64 @@
+function getAllImgUri(){
+    var i = 0;
+    var e = i + 1;
+    var a = 1;
+    var el = document.getElementsByClassName('cke_editable');
+
+    /*
+    Since html2canvas is asyncron. It does not wait for the previous task to be finished. Therefore
+    i built the nextStep() function. nextStep works through all it's tasks and calls itself when done.
+
+    Then function is called after a specific task is done.
+     */
+    function nextStep(){
+
+        /* Lets begin with the end if we looped through all the fields */
+        if(i >= el.length){
+            return;
+        }
+
+        /*
+        Thats the function that creats an image from
+         */
+        new html2canvas(el[i],
+            {
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: -window.scrollY,
+                scale: 5
+            }
+        ).then(function(canvas) {
+            //console.log(el[i]);
+            //console.log(canvas);
+            console.log(canvas);
+            var imgURI = canvas.toDataURL();
+            return imgURI;
+
+        }).then(function(imgURI){
+            //console.log("I: "+i+" | A: "+a);
+            var blob = document.getElementById('blob_'+a);
+            blob.value = imgURI;
+            a++;
+            if( i >= el.length)
+            {
+                document.getElementById("form_{{ tab_form.id }}").submit();
+            }
+            i++;
+            nextStep();
+
+        });
+
+
+        console.log("I: "+i+" | A: "+a);
+        var percent = a/el.length;
+        bar.animate(percent.toFixed(1));
+    }
+
+    nextStep();
+
+}
+
+for (var i in CKEDITOR.instances) {
+    CKEDITOR.instances[i].on('change', function() {alert('value changed!!')});
+    console.log(i);
+}

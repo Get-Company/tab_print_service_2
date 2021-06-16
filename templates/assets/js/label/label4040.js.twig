@@ -1,0 +1,58 @@
+tinymce.init({
+    selector: 'div.tinymce_inline', //Das Textfeld
+    inline: true,
+    // Delete all unnecessary Menut items
+    menubar: 'edit format', // Main
+    // Delete all unnecessary submenu items
+    menu: {
+        // deleted: file: {},
+        edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+        // deleted insert: {title: 'Insert', items: 'link media | template hr'},
+        // deleted view: {title: 'View', items: 'visualaid'},
+        format: {title: 'Format', items: 'bold italic underline strikethrough | formats | removeformat'},
+        table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+        tools: {title: 'Tools', items: 'spellchecker code'}
+    },
+    // Choose the items of Format->formats in the menu
+    style_formats: [
+        {
+            title: 'Inline', items: [
+                {title: 'Bold', format: 'bold'},
+                {title: 'Italic', format: 'italic'},
+                {title: 'Underline', format: 'underline'},
+                {title: 'Strikethrough', format: 'strikethrough'}
+            ]
+        },
+        {
+            title: 'Align', items: [
+                {title: 'Left', format: 'alignleft'},
+                {title: 'Center', format: 'aligncenter'},
+                {title: 'Right', format: 'alignright'},
+                {title: 'Justify', format: 'alignjustify'}
+            ]
+        }
+    ],
+    toolbar: 'undo redo | fontselect fontsizeselect forecolor | bold italic | link image | alignleft aligncenter alignright',
+    font_formats: "Helvetica=helvetica;" +
+        "Courier New=courier new,courier;" +
+        "Times New Roman=times new roman,times;",
+    /*
+    To get a nice range of font-size values, loop from 3 to FieldsHeightNetto in 0.5 steps
+    Every steps needs a whitespace behind it, except the last. Thatswhy the if loop.last = without whitespace
+     */
+    fontsize_formats: '{% for i in range (3, max_size, 0.5) %}{{ i }}mm {% if i == loop.last %}{{ i }}mm{% endif %}{% endfor %}',
+    content_style: ".mce-content-body {font-size:{{ max_size/3*2 }}mm;font-family:Arial,sans-serif;}",
+    resize: false, // The editor is not resizable
+    setup: function (ed) {
+        //Event on keydown check if the user has just hit the enter without the shift key
+        ed.on('keydown', function (e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                // The user has to confirm that he needs to hit shift+enter for a new line
+                confirm("Bitte benutzen Sie Shift + Enter für eine neue Zeile!");
+                e.preventDefault();
+            }
+        });
+
+    },
+console.log(tinyMCE());
+});

@@ -1,0 +1,21 @@
+
+{#% include 'helper/browserdetect.js.twig' %#}
+
+{#% include 'helper/progressbar.js.twig' with {'container': 'container'} %#}
+
+{# Include the function for creating canvas from html - give the node of the field that should be the canvas #}
+{% include 'helper/createCanvasImg.js.twig' with {'node': '.cke_textarea_inline'}  %}
+{% include 'helper/createValuesForTesting.js.twig' %}
+/*
+CKEditor initialise
+
+var elements = jQuery('textarea.editor');
+elements.each(function () {
+    CKEDITOR.inline(this, {
+        customConfig: 'config.js'
+    });
+});
+*/
+CKEDITOR.inline('', {
+    customConfig: 'config.js'
+});

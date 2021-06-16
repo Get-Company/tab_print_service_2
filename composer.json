@@ -1,0 +1,20 @@
+{
+    "name": "fbuchner/tab_print_service",
+    "description": "A service for creating Quick-Tab print forms online on classei.de",
+    "type": "library",
+    "authors": [
+        {
+            "name": "FBuchner",
+            "email": "fbuchner@classei.de"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.0",
+        "tecnickcom/tcpdf": "^6.2"
+    },
+    "autoload": {
+        "classmap": [
+            "includes/classes"
+        ]
+    }
+}

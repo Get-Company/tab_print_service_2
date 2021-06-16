@@ -1,0 +1,17 @@
+{% extends "index.html.twig" %}
+
+
+{% block js %}
+    {{ parent() }}
+    <script src='node_modules/tinymce/tinymce.min.js'></script>
+    <script>{% include '/assets/js/master.js.twig' with {'max_size': tab_form.HeightOfLines} %}</script>
+{% endblock %}
+
+
+
+{% block tab_form %}
+<h2>Vordruck {{ tab_form.name }}</h2>
+
+
+
+{% endblock %}

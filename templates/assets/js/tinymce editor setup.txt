@@ -1,0 +1,44 @@
+ tinymce.init({
+         selector: 'div.tinymce_inline', //Das Textfeld
+         statusbar: false,
+         inline: true,
+         menu: {
+             file: {},
+             edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+             insert: {title: 'Insert', items: 'link media | template hr'},
+             view: {},
+             format: {
+                 title: 'Format',
+                 items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'
+             },
+             table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+             tools: {title: 'Tools', items: 'spellchecker code'}
+         },
+         toolbar: 'fontselect fontsizeselect bold italic code lineheightselect',
+         font_formats: "Helvetica=helvetica;" +
+             "Courier New=courier new,courier;" +
+             "Times New Roman=times new roman,times;",
+         plugins: 'lineheight',
+
+     });
+
+
+     package.json:
+     {
+       "name": "tab_print_service",
+       "version": "1.0.0",
+       "description": "Print Service to creat pdf's for all our tabs and adhesive sheets",
+       "main": "index.js",
+       "scripts": {
+         "test": "echo \"Error: no test specified\" && exit 1"
+       },
+       "author": "",
+       "license": "ISC",
+       "dependencies": {
+         "bootstrap": "^4.3.1",
+         "jquery": "^3.4.1",
+         "tinymce": "^4.9.5",
+         "tinymce-i18n": "^19.5.15",
+         "tinymce-line-height-plugin": "^1.0.0"
+       }
+     }

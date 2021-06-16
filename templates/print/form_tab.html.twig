@@ -1,0 +1,85 @@
+{% extends "index.html.twig" %}
+
+{% block bootstrap_css %}
+<style type="text/css">
+    /* Selector is used after init of tinymce */
+    .mce-content-body {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .sheet{
+        width:{{ tab_form.WidthOfSheet * 4 }}px;
+        height: {{ tab_form.HeightOfSheet * 4 }}px;
+    }
+    .sheet p{
+        margin: 0;
+        line-height:1em;
+    }
+
+    #loading.shown{
+        margin: 0px auto;
+        width: 400px;
+        height: 400px;
+    }
+    #loading.hidden{
+        width: 0px;
+        height: 0px;
+    }
+
+    {# Include special CSS for different Tabs or Labels #}
+    {% include '/assets/css/'~tab_form.id~'.css.twig' %}
+
+    </style>
+    {{ parent() }}
+{% endblock %}
+
+
+
+{% block tab_form %}
+
+    <div id="loading" class="hidden"></div>
+
+<button class="btn btn-warning" onclick="setContent()">Testinhalt</button>
+<button id="klauspeter" class="btn btn-warning" onclick="getAllImgUri()">PDF erstellen</button>
+    <form action="" target="_blank" method="post" name="form" id="form_{{ tab_form.id }}">
+        <button type="submit">Abbschigga</button>
+        <div class="row">
+            <div class="col">
+                <div id="sheet" class="sheet">
+
+                    {# Tab #}
+                    {% set i = 0 %}
+                    {# Row #}
+                    {% for r in range(1,tab_form.AmountOfRows) %}
+                        <div class="tab_row" id="tab_row_{{ r }}">
+                            {# Column #}
+                            {% for c in range(1, tab_form.AmountOfColumns) %}
+                                {% set i = i + 1 %}
+                                <div class="tab_column">
+                                    <div id="tab_field_{{ i }}" class="tab_field {{ tab_form.id }} {% if (i is odd)  %}odd{% else %}even{% endif %}">
+                                        <textarea name="editor[]" id="editor_{{ i }}" class="editor border">
+                                        </textarea>
+                                        <input name="blob[]" type="hidden" id="blob_{{ i }}">
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    {%  endfor %}
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <button onclick="getAllImgUri()">PDF erstellen</button>
+{% endblock %}
+
+
+{% block js %}
+    {{ parent() }}
+    <script src="node_modules/html2canvas/dist/html2canvas.js"></script>
+    <script src="node_modules/progressbar.js/dist/progressbar.min.js"></script>
+    <script>{% include '/assets/js/master.js.twig'%}</script>
+    <script>{% include '/assets/js/helper/progressbar.js.twig' %}</script>
+{% endblock %}
+

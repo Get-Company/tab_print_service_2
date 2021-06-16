@@ -1,0 +1,19 @@
+{
+  "name": "tab_print_service",
+  "version": "1.0.0",
+  "description": "Print Service to create pdf's for all our tabs and adhesive sheets",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "bootswatch": "^4.3.1",
+    "getcomposer": "^1.3.3",
+    "html2canvas": "^1.0.0-rc.5",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "html-to-image": "^0.1.1",
+    "progressbar.js": "^1.1.0"
+  }
+}
