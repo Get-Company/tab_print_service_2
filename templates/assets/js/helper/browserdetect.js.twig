@@ -1,12 +1,46 @@
-// Chrome 1 - 71
-var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+{#
+Working Browsers:
+    Chrome - ok
+    Firefox ^89
 
-$( document ).ready(function() {
-    if(isChrome != true){
-        document.getElementById('no_chrome').style.display = "block";
-        document.getElementById('chrome').style.display = "none";
-    }
-    else{
+Not Working Browsers:
+    Opera no (Druckdialog Einstellungen?
+    IE
+#}
 
+function get_browser() {
+    var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
+        return {name:'IE',version:(tem[1]||'')};
     }
-});
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR|Edge\/(\d+)/)
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+    }
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+        name: M[0],
+        version: parseInt(M[1])
+    };
+}
+
+var browser=get_browser(); // browser.name = 'Chrome'
+                           // browser.version = '40'
+console.log(browser);
+
+// True switch. Checks if anything returns true
+switch (true) {
+    case (browser.name == "Chrome"):
+        console.info("Chrome");
+        break;
+    case (browser.name == "Firefox" && browser.version >= 89):
+        console.info("Firefox >= v89");
+        break;
+    default:
+        $( document ).ready(function() {
+            document.getElementById('no_chrome').style.display = "block";
+            document.getElementById('chrome').style.display = "none";
+        });
+}//EOF switch
