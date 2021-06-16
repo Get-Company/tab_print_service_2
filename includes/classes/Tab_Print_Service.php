@@ -29,8 +29,9 @@ class Tab_Print_Service
     public $fields_height_brutto;
     public $fields_width_netto;
     public $fields_height_netto;
-    public $fields_offset_left;
-    public $fields_offset_top;
+
+    public $fields_offset_left = 0;
+    public $fields_offset_top = 0;
 
 
     public function __construct()
@@ -378,10 +379,8 @@ class Tab_Print_Service
     {
         $this->fields_height_netto = $fields_height_netto;
     }
-
-
     /**
-     * @return mixed
+     * @return integer
      */
     public function getFieldsOffsetLeft()
     {
@@ -389,7 +388,7 @@ class Tab_Print_Service
     }
 
     /**
-     * @param mixed $fields_offset_left
+     * @param integer $fields_offset_left
      */
     public function setFieldsOffsetLeft($fields_offset_left)
     {
@@ -397,7 +396,7 @@ class Tab_Print_Service
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getFieldsOffsetTop()
     {
@@ -405,7 +404,7 @@ class Tab_Print_Service
     }
 
     /**
-     * @param mixed $fields_offset_top
+     * @param integer $fields_offset_top
      */
     public function setFieldsOffsetTop($fields_offset_top)
     {
@@ -413,26 +412,16 @@ class Tab_Print_Service
     }
 
 
-    /**
-     * Get Pos X
-     *
-     * Get the position of x with the current column $c given. This is handmade and calculated in the classes to be as precise as possible
-     * @param $c
-     */
     public function getPosX($c)
     {
 
     }
 
-    /**
-     * Get Pos Y
-     *
-     * Get the position of y with the current row $r given. This is handmade and calculated in the classes to be as precise as possible
-     * @param $r
-     */
     public function getPosY($r, $l = false)
     {
 
     }
+
+
 
 }

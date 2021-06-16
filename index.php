@@ -10,9 +10,9 @@ $loader =  new \Twig\Loader\FilesystemLoader([
     'templates/choose',
     'templates/assets/js'
 ]);
-$twig = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader,['debug' => true]);
 
-
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
 
 /**
@@ -37,7 +37,7 @@ $label4040 = new Label4040();
 $tab_form = null;
 if(isset($_GET['sheet']))
 {
-    # URL is better than string - was teste with script tags and console.log in the GET Parameters
+    # URL is better than string - was tested with script tags and console.log in the GET Parameters
     $tab_filtered= filter_var($_GET['sheet'], FILTER_SANITIZE_URL);
     
     # If a tab_form object is not available, jump to index.php
@@ -75,10 +75,11 @@ if(isset($_POST) && !empty($_POST))
                 $blob = $data;
             }
         }
-        
 
         $pdf = new CreatePDF($tab_form);
         $pdf->build($fields_array);
+
+        
 }
 
 
@@ -91,6 +92,10 @@ if($tab_form)
 {
     $template= "print/form_".$tab_form->type.".html.twig";
 }
+
+/**
+ *
+ */
 echo $twig->render($template,[
     'tab_print_service' => $tabPrintService,
     'tab5810' => $tab5810,

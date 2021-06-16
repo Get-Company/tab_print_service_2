@@ -52,8 +52,7 @@ class CreatePDF
             $this->sheet->getHeightOfSheet()
             ]);
         # This is set by the html of each textfield
-        #$this->tcpdf->SetFont('Helvetica','B',16);
-        
+        $this->tcpdf->SetFont('Helvetica','B',8);
 
         # The type of Sheet, wheter its a tab or a label
         $type = $this->sheet->getType();
@@ -66,8 +65,13 @@ class CreatePDF
         {
             $this->labelLoop($fields_array);
         }
-        
-        $this->tcpdf->Output($this->sheet->getID().'.pdf','D');
+        $current_time = new Datetime("now");
+        $file = '/'.$this->sheet->getID().'_'.$current_time->format('U').'.pdf';
+        $this->tcpdf->Output($file,'D');
+
+        $file_check = __DIR__.'/temp'.$file;
+        $this->tcpdf->Output($file_check, F);
+
 
         # For Testpurpose
         #$this->tcpdf->Output("test.pdf", 'I');
@@ -84,16 +88,22 @@ class CreatePDF
             # The Y is set here while handling the rows
             $y = $this->sheet->getPosY($r);
 
+            # $y + The offset set by the client
+            $y = $y + $fields_array['offset_top'];
+
             # Loop Columns $c
             for($c=1; $c<=$this->sheet->amount_of_columns;$c++)
             {
                 $x = $this->sheet->getPosX($c);
 
+                # $x + The offset set by the client
+                $x = $x + $fields_array['offset_left'];
+
                 $this->tcpdf->SetXY($x,$y);
                 
                 # If Tiny MCE
-                #$this->addText("PosX: ".$x." PosY: ".$y);
-                $this->addImage($fields_array['blob'][$i]);
+                #$this->addText("PosX: ".$x."<br/> PosY: ".$y);
+                $this->addImage($fields_array['blob'][$i], $x, $y);
                 $i++;
 
             }
@@ -205,13 +215,15 @@ class CreatePDF
     }
 
 
-    public function addImage($file)
+    public function addImage($file, $x, $y)
     {
 
         $imgdata = base64_decode($file);
 
-        // The '@' character is used to indicate that follows an image data stream and not an image file name
-        $this->tcpdf->Image('@'.$imgdata, false, false, $this->sheet->getFieldsWidthBrutto(), false, false, false, false, true, 400);
+        # The '@' character is used to indicate that follows an image data stream and not an image file name
+        # The -1 on FieldsWidth is for all fields that are aligned to the right. When adding border from the left
+        # the image is pushed to the left and outside the print area
+        $this->tcpdf->Image('@'.$imgdata, $x, $y, $this->sheet->getFieldsWidthBrutto() - 1, false, false, false, false, true, 400);
 
 
     }

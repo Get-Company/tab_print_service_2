@@ -16,8 +16,8 @@ class Tab2910 extends Tab_Print_Service
         $this->setId('tab2910');
 
         $this->setWidthOfSheet(210);
-        $this->setHeightOfSheet(316); # 316 Minimale länge um auf 1 Blatt zu bleiben
-        $this->setWidthOfBorder(6);
+        $this->setHeightOfSheet(320); # 317 Minimale länge um auf 1 Blatt zu bleiben
+        $this->setWidthOfBorder(5);
         $this->setHeightOfBorder(5);
 
         $this->setAmountOfFields(48);
@@ -27,6 +27,10 @@ class Tab2910 extends Tab_Print_Service
         $this->setFieldsWidthNetto(29);
         $this->setFieldsHeightBrutto(35);
         $this->setFieldsHeightNetto(10);
+
+        $this->setFieldsOffsetLeft(2);
+        $this->setFieldsOffsetTop(1);
+
         $this->setType('tab');
     }
 
@@ -46,12 +50,15 @@ class Tab2910 extends Tab_Print_Service
         }
         if($c >= 3)
         {
-            $x += $this->getWidthOfBorder() * 2;
+            $x += 12;
         }
         if($c >= 5)
         {
-            $x += $this->getWidthOfBorder() * 2;
+            $x += 12;
         }
+
+        # Offset left zu x dazu
+        $x += $this->getFieldsOffsetLeft();
 
         # Richtiger X Wert wird zurückgegeben
         return $x;
@@ -74,6 +81,10 @@ class Tab2910 extends Tab_Print_Service
             $y += $this->getHeightOfBorder() * 2;
         }
 
+        # Offset left zu x dazu
+        $y += $this->getFieldsOffsetTop();
+
+        # Richtiger y Wert wird zurückgegeben
         return $y;
     }
 

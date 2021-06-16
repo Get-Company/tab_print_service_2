@@ -2,32 +2,15 @@
 
 {% block bootstrap_css %}
 <style type="text/css">
-    /* Selector is used after init of tinymce */
-    .mce-content-body {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-    .sheet{
-        width:{{ tab_form.WidthOfSheet * 4 }}px;
-        height: {{ tab_form.HeightOfSheet * 4 }}px;
-    }
-    .sheet p{
-        margin: 0;
-        line-height:1em;
-    }
+    {# The factor fromt mm of the sheet to resize the form #}
+    {% set factor = 3 %}
+    {% set sheet_font_size = 16 %}
 
-    #loading.shown{
-        margin: 0px auto;
-        width: 400px;
-        height: 400px;
-    }
-    #loading.hidden{
-        width: 0px;
-        height: 0px;
-    }
+    {# Include Master css for Tabs #}
+    {% include '/assets/css/tab/tab_master.css.twig' %}
 
     {# Include special CSS for different Tabs or Labels #}
-    {% include '/assets/css/'~tab_form.id~'.css.twig' %}
+    {% include '/assets/css/tab/'~tab_form.id~'.css.twig' %}
 
     </style>
     {{ parent() }}
@@ -36,17 +19,44 @@
 
 
 {% block tab_form %}
+    <form action="" method="post" name="form" id="form_{{ tab_form.id }}">
+        <fieldset class="mb-3">
+            <legend>Seitenränder Einstellung Drucker</legend>
+                <div class="row">
+                    <div class="col-3">
+                        <label id="output_offset_left" for="offset_left">0 mm Rand von links</label>
+                        <br/>
+                        <input oninput="getOffsetLeft(this.value)"
+                               value="0"
+                               type="range"
+                               min="-5"
+                               max="5"
+                               id="offset_left"
+                               name="offset_left" >
+                    </div>
+                <div class="col-3">
+                    <label id="output_offset_top" for="offset_top">0 mm Rand von oben</label>
+                    <br/>
+                    <input oninput="getOffsetTop(this.value)"
+                           value="0"
+                           type="range"
+                           min="-5"
+                           max="5"
+                           id="offset_top"
+                           name="offset_top">
+                </div>
+                    <div class="col-4">
+                        <button id="pdf_download_1" type="button" class="btn btn-warning btn-block btn-sm" onclick="getAllImgUri()">
+                            Fertig? <br/> Zum Download!
+                        </button>
+                    </div>
+            </div>
+        </fieldset>
 
-    <div id="loading" class="hidden"></div>
-
-<button class="btn btn-warning" onclick="setContent()">Testinhalt</button>
-<button id="klauspeter" class="btn btn-warning" onclick="getAllImgUri()">PDF erstellen</button>
-    <form action="" target="_blank" method="post" name="form" id="form_{{ tab_form.id }}">
-        <button type="submit">Abbschigga</button>
-        <div class="row">
-            <div class="col">
                 <div id="sheet" class="sheet">
-
+                    {# For Loading and creating the PDF#}
+                    <div id="overlay"></div>
+                <div id="loading"></div>
                     {# Tab #}
                     {% set i = 0 %}
                     {# Row #}
@@ -57,21 +67,27 @@
                                 {% set i = i + 1 %}
                                 <div class="tab_column">
                                     <div id="tab_field_{{ i }}" class="tab_field {{ tab_form.id }} {% if (i is odd)  %}odd{% else %}even{% endif %}">
-                                        <textarea name="editor[]" id="editor_{{ i }}" class="editor border">
+                                        <textarea name="editor[]" id="editor_{{ i }}" class="editor border">{% if fields_array %}{{ fields_array.editor[i-1] }}{% endif %}
                                         </textarea>
                                         <input name="blob[]" type="hidden" id="blob_{{ i }}">
                                     </div>
                                 </div>
                             {% endfor %}
-
                         </div>
                     {%  endfor %}
 
                 </div>
+
+            <div class="row">
+
+                <div class="col-12">
+                    <button id="pdf_download_2" type="button" class="btn btn-warning btn-block btn-sm" onclick="getAllImgUri()">
+                        Fertig? Zum Download!
+                    </button>
+                </div>
             </div>
-        </div>
+
     </form>
-    <button onclick="getAllImgUri()">PDF erstellen</button>
 {% endblock %}
 
 
@@ -80,6 +96,5 @@
     <script src="node_modules/html2canvas/dist/html2canvas.js"></script>
     <script src="node_modules/progressbar.js/dist/progressbar.min.js"></script>
     <script>{% include '/assets/js/master.js.twig'%}</script>
-    <script>{% include '/assets/js/helper/progressbar.js.twig' %}</script>
 {% endblock %}
 

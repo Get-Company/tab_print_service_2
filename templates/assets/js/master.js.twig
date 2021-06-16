@@ -1,21 +1,44 @@
 
 {#% include 'helper/browserdetect.js.twig' %#}
 
-{#% include 'helper/progressbar.js.twig' with {'container': 'container'} %#}
+{% include 'helper/progressbar.js.twig' %}
 
 {# Include the function for creating canvas from html - give the node of the field that should be the canvas #}
 {% include 'helper/createCanvasImg.js.twig' with {'node': '.cke_textarea_inline'}  %}
-{% include 'helper/createValuesForTesting.js.twig' %}
-/*
-CKEditor initialise
+{#% include 'helper/createValuesForTesting.js.twig' %#}
 
+{# This is the master config file. it contains the config that fits to each sheet. It creates a config variable. #}
+{% include '/assets/js/'~tab_form.type~'/master_config.js.twig' %}
+{# This is the special config for a certain sheet. It overwrites the config variable that was loaded before #}
+{% include '/assets/js/'~tab_form.type~'/'~tab_form.id~'_config.js.twig' %}
+
+/*
+CKEditor initialise and the config variable is forwarded to this instance
+*/
 var elements = jQuery('textarea.editor');
 elements.each(function () {
-    CKEDITOR.inline(this, {
-        customConfig: 'config.js'
-    });
+    CKEDITOR.inline(this, config);
 });
-*/
-CKEDITOR.inline('', {
-    customConfig: 'config.js'
-});
+
+/*
+Get the range-slider Values and show them in th UI
+ */
+
+function getOffsetLeft(val) {
+    document.getElementById('output_offset_left').textContent=val + " mm Rand von links";
+    var elRows = document.getElementsByClassName('tab_row');
+    var val = val * 2;
+    for (var i = 0; i < elRows.length; ++i) {
+        var item = elRows[i];
+        item.style.marginLeft = val + 'px';
+    }
+
+
+}
+
+function getOffsetTop(val) {
+    document.getElementById('output_offset_top').textContent=val + " mm Rand von oben";
+    var elRow = document.getElementById('tab_row_1');
+    var val = val * 2;
+    elRow.style.marginTop = val + 'px';
+}

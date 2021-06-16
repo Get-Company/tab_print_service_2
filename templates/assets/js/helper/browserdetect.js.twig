@@ -1,1 +1,12 @@
-console.log(navigator.userAgent);
+// Chrome 1 - 71
+var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+$( document ).ready(function() {
+    if(isChrome != true){
+        document.getElementById('no_chrome').style.display = "block";
+        document.getElementById('chrome').style.display = "none";
+    }
+    else{
+
+    }
+});

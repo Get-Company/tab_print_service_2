@@ -1,35 +1,59 @@
-var loading = document.getElementById("loading");
+var elButtonDownload1 = document.getElementById("pdf_download_1");
+var elButtonDownload2 = document.getElementById("pdf_download_2");
 
-loading.classList.add("shown");
-loading.classList.remove("hidden");
 
-var bar = new ProgressBar.Circle(loading, {
-    color: '#f93',
-    // This has to be the same size as the maximum width to
-    // prevent clipping
-    strokeWidth: 4,
-    trailWidth: 1,
-    easing: 'easeInOut',
-    duration: 1000,
-    text: {
-        autoStyleContainer: false
-    },
-    from: { color: '#aaa', width: 1 },
-    to: { color: '#333', width: 4 },
-    // Set default step function for all animate calls
-    step: function(state, circle) {
-        circle.path.setAttribute('stroke', state.color);
-        circle.path.setAttribute('stroke-width', state.width);
+function createLoading() {
 
-        var value = Math.round(circle.value() * 100);
-        if (value === 0) {
-            circle.setText('');
-        } else {
-            circle.setText(value);
+    var elOverlay = document.getElementById("overlay");
+    elOverlay.style.display = "block";
+
+    var elLoading = document.getElementById("loading");
+    elLoading.style.display = "block";
+
+    elButtonDownload1.classList.add("disabled");
+    elButtonDownload1.setAttribute("disabled", true);
+    elButtonDownload2.classList.add("disabled");
+    elButtonDownload2.setAttribute("disabled", true);
+
+    var bar = new ProgressBar.Circle(elLoading, {
+        color: '#ff9933',
+        // This has to be the same size as the maximum width to
+        // prevent clipping
+        strokeWidth: 4,
+        trailWidth: 1,
+        easing: 'easeInOut',
+        duration: 500,
+        text: {
+            autoStyleContainer: false
+        },
+        from: {color: '#aaa', width: 1},
+        to: {color: '#333', width: 4},
+        // Set default step function for all animate calls
+        step: function (state, circle) {
+            circle.path.setAttribute('stroke', state.color);
+            circle.path.setAttribute('stroke-width', state.width);
+
+            var value = Math.round(circle.value() * 100);
+            if (value === 0) {
+                circle.setText('');
+            } else {
+                circle.setText(value + ' %');
+            }
+
         }
+    });
+    bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+    bar.text.style.fontSize = '2rem';
 
-    }
-});
+    return bar;
+}
+function removeLoading(){
+    document.getElementById('overlay').style.display = "none";
+    jQuery("#loading").empty();
+    document.getElementById('loading').style.display = "none";
 
-bar.text.style.fontFamily = '"Arial", Helvetica, sans-serif';
-bar.text.style.fontSize = '2rem';
+    elButtonDownload1.classList.remove("disabled");
+    elButtonDownload1.removeAttribute("disabled");
+    elButtonDownload2.classList.remove("disabled");
+    elButtonDownload2.removeAttribute("disabled");
+}

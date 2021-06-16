@@ -17,8 +17,8 @@ class Tab7015 extends Tab_Print_Service
 
         $this->setWidthOfSheet(210);
         $this->setHeightOfSheet(316); # 316 Minimale länge um auf 1 Blatt zu bleiben
-        $this->setWidthOfBorder(18);
-        $this->setHeightOfBorder(11);
+        $this->setWidthOfBorder(15);
+        $this->setHeightOfBorder(12);
 
         $this->setAmountOfFields(12);
         $this->setAmountOfRows(6);
@@ -29,6 +29,8 @@ class Tab7015 extends Tab_Print_Service
         $this->setFieldsHeightNetto(15);
         $this->setType('tab');
 
+        $this->setFieldsOffsetLeft(2);
+        $this->setFieldsOffsetTop(1);
     }
 
     public function getPosX($c)
@@ -41,11 +43,15 @@ class Tab7015 extends Tab_Print_Service
         {
             $x += 0;
         }
-        # Feld 2 und 3 brauchen nun die Breite des Feldes + 2x den Rand * die Spalte
+        # Feld 2 nun die Breite des Feldes + Abstand zum nächsten Feld
+        # TODO Evtl. Getter und Setter für Abstand Mitte vertikal 1 - 2 Feld
         else{
 
-            $x += ($this->getFieldsWidthBrutto()+($this->getWidthOfBorder()*2)) * ($c-1);
+            $x += $this->getFieldsWidthBrutto() + 35;
         }
+
+        # Offset left zu x dazu
+        $x += $this->getFieldsOffsetLeft();
 
         # Richtiger X Wert wird zurückgegeben
         return $x;
@@ -62,12 +68,17 @@ class Tab7015 extends Tab_Print_Service
             $y += $this->getFieldsHeightBrutto() * ($r - 1);
         }
 
-        # Ab 5. Zeile ist ein Offset von 2xRand notwendig - Mitte des Blattes
+        # Ab 4. Zeile ist ein Offset von 19 nötig (Classei Logo in der Mitte
+        #TODO Evtl. Getter und Setter für Abstand Mitte horizontal 3 - 4 Feld
         if($r >= 4)
         {
-            $y += $this->getHeightOfBorder() * 2;
+            $y += 19;
         }
 
+        # Offset left zu x dazu
+        $y += $this->getFieldsOffsetTop();
+
+        # Richtiger y Wert wird zurückgegeben
         return $y;
     }
 

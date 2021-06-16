@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tab_print_service_2.iml" filepath="$PROJECT_DIR$/.idea/tab_print_service_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tab_print_service.iml" filepath="$PROJECT_DIR$/.idea/tab_print_service.iml" />
     </modules>
   </component>
 </project>

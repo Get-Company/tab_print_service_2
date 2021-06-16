@@ -1,9 +1,12 @@
 function getAllImgUri(){
-    var i = 0;
-    var e = i + 1;
-    var a = 1;
-    var el = document.getElementsByClassName('cke_editable');
 
+    // Create the loading overlay
+    var bar = createLoading();
+
+    var i = 0;
+    var a = 1;
+    // The classes that are transformed to canvas and forwarded to html2canvas
+    var el = document.getElementsByClassName('cke_editable');
     /*
     Since html2canvas is asyncron. It does not wait for the previous task to be finished. Therefore
     i built the nextStep() function. nextStep works through all it's tasks and calls itself when done.
@@ -12,53 +15,61 @@ function getAllImgUri(){
      */
     function nextStep(){
 
-        /* Lets begin with the end if we looped through all the fields */
+        // Lets begin with the end if we looped through all the fields
         if(i >= el.length){
             return;
         }
 
         /*
-        Thats the function that creats an image from
+        Thats the function that creates an image from
          */
         new html2canvas(el[i],
             {
                 backgroundColor: '#ffffff',
+                // Needs to be set, otherwise we have a white margin
                 scrollX: 0,
                 scrollY: -window.scrollY,
+                // The image is scaled up so the resolution for printing is better but it takes some time to generate
                 scale: 5
             }
+
+            // When html2canvas is ready
         ).then(function(canvas) {
-            //console.log(el[i]);
-            //console.log(canvas);
-            console.log(canvas);
+
+            // Make a dataURL out of the div and forward it to the next step
             var imgURI = canvas.toDataURL();
             return imgURI;
 
+            // When the dataURL is forwarded
         }).then(function(imgURI){
-            //console.log("I: "+i+" | A: "+a);
+
+            // Find the hidden field in the form for each content field that holds the dataURL
             var blob = document.getElementById('blob_'+a);
+            // Set the dataURL as value of the field. When the form is sent, the dataURL will bes sent to
             blob.value = imgURI;
+            // Add 1 to the counter a starts with 1, i starts with 0
             a++;
+            i++;
+
+            var percent = i / el.length;
+            console.log(percent);
+            bar.animate(percent.toFixed(3));
+            
+            // When we reached the last field, send the form
             if( i >= el.length)
             {
                 document.getElementById("form_{{ tab_form.id }}").submit();
+                removeLoading();
             }
-            i++;
+            // Call to itself for the next Loop
             nextStep();
-
         });
 
 
-        console.log("I: "+i+" | A: "+a);
-        var percent = a/el.length;
-        bar.animate(percent.toFixed(1));
+
     }
 
+    // First call for the function to get inside the loop
     nextStep();
 
-}
-
-for (var i in CKEDITOR.instances) {
-    CKEDITOR.instances[i].on('change', function() {alert('value changed!!')});
-    console.log(i);
 }

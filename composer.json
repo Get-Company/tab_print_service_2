@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "twig/twig": "^2.0",
-        "tecnickcom/tcpdf": "^6.2"
+        "twig/twig": "^2",
+        "tecnickcom/tcpdf": "^6"
     },
     "autoload": {
         "classmap": [

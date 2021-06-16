@@ -3,7 +3,7 @@
 # Update Autoloader on creating new class with: composer dump-autoload --optimize
 require_once 'vendor/autoload.php';
 
-class Tab2910 extends Tab_Print_Service
+class Tab5710 extends Tab_Print_Service
 {
 
 
@@ -11,21 +11,21 @@ class Tab2910 extends Tab_Print_Service
     {
         parent::__construct();
         $this->setName('Folien-Tab 5710');
-        $this->setImgId(398);
-        $this->setDesc('Der gängigste unter unseren tabs. 2,9cm breit, daher der Name 2910..');
-        $this->setId('tab2910');
+        $this->setImgId(452);
+        $this->setDesc('selbstklebend für schmutzgeschützte Beschriftungen. Das Beschriftungsschildchen wird von einer transparenten Schutzfolie umschlossen. Nicht für alle Drucker verwendbar. Verfügbare Farben 00-09,');
+        $this->setId('tab5710');
 
         $this->setWidthOfSheet(210);
         $this->setHeightOfSheet(316); # 316 Minimale länge um auf 1 Blatt zu bleiben
-        $this->setWidthOfBorder(6);
+        $this->setWidthOfBorder(9);
         $this->setHeightOfBorder(5);
 
-        $this->setAmountOfFields(48);
+        $this->setAmountOfFields(24);
         $this->setAmountOfRows(8);
-        $this->setAmountOfColumns(6);
-        $this->setFieldsWidthBrutto(29);
-        $this->setFieldsWidthNetto(29);
-        $this->setFieldsHeightBrutto(35);
+        $this->setAmountOfColumns(3);
+        $this->setFieldsWidthBrutto(58);
+        $this->setFieldsWidthNetto(58);
+        $this->setFieldsHeightBrutto(10);
         $this->setFieldsHeightNetto(10);
         $this->setType('tab');
     }

@@ -16,8 +16,8 @@ class Tab5810 extends Tab_Print_Service
         $this->setId('tab5810');
 
         $this->setWidthOfSheet(210);
-        $this->setHeightOfSheet(316); # 316 Minimale länge um auf 1 Blatt zu bleiben
-        $this->setWidthOfBorder(6);
+        $this->setHeightOfSheet(320); # 316 Minimale länge um auf 1 Blatt zu bleiben
+        $this->setWidthOfBorder(5);
         $this->setHeightOfBorder(5);
 
         $this->setAmountOfFields(24);
@@ -29,9 +29,8 @@ class Tab5810 extends Tab_Print_Service
         $this->setFieldsHeightNetto(10);
         $this->setType('tab');
 
-        $this->setFieldsOffsetLeft('2');
-        $this->setFieldsOffsetTop(0);
-
+        $this->setFieldsOffsetLeft(2);
+        $this->setFieldsOffsetTop(1);
     }
 
     public function getPosX($c)
@@ -50,21 +49,19 @@ class Tab5810 extends Tab_Print_Service
         ----------------------------------------------
         */
         # Beim 1. Feld brauchen wir sonst keinen Abstand
+        $x = $this->getWidthOfBorder();
+
         if($c == 1)
         {
-            $x = $this->getWidthOfBorder();
+            $x += 0;
         }
-        # Feld 2 braucht nun # die Breite des Feldes (58) + 2x den Rand
-        elseif($c == 2){
+        # Feld 2 braucht nun die Breite des Feldes (58) + 12 / Ab Feld 3 2x Breite des Feldes + 2 * 12
+        elseif($c >= 2){
 
-            $x = ($this->getFieldsWidthBrutto()+($this->getWidthOfBorder()*3));
-        }
-        # Feld 3
-        else{
-            $x = ($this->getFieldsWidthBrutto()*2) + ($this->getWidthOfBorder() * 5);
+            $x += ($this->getFieldsWidthBrutto() + 12) * ($c-1);
         }
 
-        # Offset
+        # Offset left zu x dazu
         $x += $this->getFieldsOffsetLeft();
 
         # Richtiger X Wert wird zurückgegeben
@@ -88,15 +85,10 @@ class Tab5810 extends Tab_Print_Service
             $y += $this->getHeightOfBorder() * 2;
         }
 
-        # Letzte Zeile = Extrawurscht. Diese kann nicht komplett bedruckt werden:
-        if($r == $this->getAmountOfRows())
-        {
-            $y += -1;
-        }
-
-        #Offset
+        # Offset left zu x dazu
         $y += $this->getFieldsOffsetTop();
 
+        # Richtiger y Wert wird zurückgegeben
         return $y;
     }
 
