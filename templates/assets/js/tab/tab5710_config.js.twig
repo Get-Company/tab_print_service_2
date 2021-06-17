@@ -1,0 +1,15 @@
+/**
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+/*
+Do NOT use var since config is created in the master_config
+Find all config params here: https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-fontSize_defaultLabel
+Be sure to use json (:) instead of (=)
+ */
+config = {
+    fontSize_sizes : '{% for i in 10..30 %}{{ i }}/{{ i }}px;{% endfor %}',
+    fontSize_defaultLabel : 'Schriftgröße'
+};
+

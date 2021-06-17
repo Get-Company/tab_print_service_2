@@ -8,6 +8,27 @@ Not Working Browsers:
     IE
 #}
 
+var browser=get_browser();
+
+// True switch. Checks if anything returns true
+switch (true) {
+    case (browser.name = "Chrome"):
+        console.info("Chrome");
+        setCompatible();
+        break;
+    case (browser.name = "Firefox" && browser.version >= 89):
+        console.info("Firefox >= v89");
+        setCompatible();
+        break;
+    case (browser.name = "Opera"):
+        console.info("Opera");
+        setCompatible();
+        break;
+    default:
+       setNotCompatible();
+}//EOF switch
+
+
 function get_browser() {
     var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     if(/trident/i.test(M[1])){
@@ -26,21 +47,16 @@ function get_browser() {
     };
 }
 
-var browser=get_browser(); // browser.name = 'Chrome'
-                           // browser.version = '40'
-console.log(browser);
+function setCompatible(){
+    $( document ).ready(function() {
+        document.getElementById('not_compatible').style.display = "none";
+        document.getElementById('compatible').style.display = "block";
+    });
+}
 
-// True switch. Checks if anything returns true
-switch (true) {
-    case (browser.name = "Chrome"):
-        console.info("Chrome");
-        break;
-    case (browser.name = "Firefox" && browser.version >= 89):
-        console.info("Firefox >= v89");
-        break;
-    default:
-        $( document ).ready(function() {
-            document.getElementById('no_chrome').style.display = "block";
-            document.getElementById('chrome').style.display = "none";
-        });
-}//EOF switch
+function setNotCompatible(){
+    $( document ).ready(function() {
+        document.getElementById('not_compatible').style.display = "block";
+        document.getElementById('compatible').style.display = "none";
+    });
+}

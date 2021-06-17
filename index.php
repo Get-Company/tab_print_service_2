@@ -24,9 +24,9 @@ $tabPrintService = new Tab_Print_Service();
 $tab5810 = new Tab5810();
 $tab7015 = new Tab7015();
 $tab2910 = new Tab2910();
+$tab5710 = new Tab5710();
 $label4041 = new Label4041();
 $label4040 = new Label4040();
-
 
 /**
  * Select a Sheet - Choose
@@ -101,6 +101,7 @@ echo $twig->render($template,[
     'tab5810' => $tab5810,
     'tab7015' => $tab7015,
     'tab2910' => $tab2910,
+    'tab5710' => $tab5710,
     'label4041' => $label4041,
     'label4040' => $label4040,
     'tab_form' => $tab_form,

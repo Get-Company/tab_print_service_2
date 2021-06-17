@@ -1,19 +1,18 @@
 {% extends "index.html.twig" %}
 
 {% block bootstrap_css %}
+    {{ parent() }}
+    <!-- tab_master.css.twig - /assets/css/tab/tab_master.css.twig -->
+    <!-- {{ tab_form.id }}.css.twig - /assets/css/tab/{{ tab_form.id }}.css.twig -->
 <style type="text/css">
     {# The factor fromt mm of the sheet to resize the form #}
     {% set factor = 3 %}
     {% set sheet_font_size = 16 %}
-
     {# Include Master css for Tabs #}
     {% include '/assets/css/tab/tab_master.css.twig' %}
-
     {# Include special CSS for different Tabs or Labels #}
     {% include '/assets/css/tab/'~tab_form.id~'.css.twig' %}
-
     </style>
-    {{ parent() }}
 {% endblock %}
 
 

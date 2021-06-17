@@ -70,11 +70,11 @@ class CreatePDF
         $this->tcpdf->Output($file,'D');
 
         $file_check = __DIR__.'/temp'.$file;
-        $this->tcpdf->Output($file_check, F);
+        #$this->tcpdf->Output($file_check, F);
 
 
         # For Testpurpose
-        #$this->tcpdf->Output("test.pdf", 'I');
+        $this->tcpdf->Output("test.pdf", 'I');
     }
 
 
@@ -102,8 +102,8 @@ class CreatePDF
                 $this->tcpdf->SetXY($x,$y);
                 
                 # If Tiny MCE
-                #$this->addText("PosX: ".$x."<br/> PosY: ".$y);
-                $this->addImage($fields_array['blob'][$i], $x, $y);
+                $this->addText("PosX: ".$x."<br/> PosY: ".$y);
+                #$this->addImage($fields_array['blob'][$i], $x, $y);
                 $i++;
 
             }
@@ -131,8 +131,8 @@ class CreatePDF
                     $y = $this->sheet->getPosY($r, $l);
 
                     $this->tcpdf->SetXY($x, $y);
-                    #$debug_text = "PosX:".$x."|PosY:".$y." W:".$this->sheet->getFieldsWidthBrutto().'|H:'.$this->sheet->getFieldsHeightBrutto().'|R:'.$r.'|L:'.$l;
-                    #$this->addText($debug_text, false, $l);
+                    $debug_text = "PosX:".$x."|PosY:".$y." W:".$this->sheet->getFieldsWidthBrutto().'|H:'.$this->sheet->getFieldsHeightBrutto().'|R:'.$r.'|L:'.$l;
+                    $this->addText($debug_text, false, $l);
 
                     # Fit the name attribute of the form textarea array
                     # Example: text_Tab5810_13
@@ -149,7 +149,7 @@ class CreatePDF
                     */
 
                     # If Tiny MCE
-                    $this->addText($fields_array['tinymce_'.$i], false, $l);
+                    #$this->addText($fields_array['tinymce_'.$i], false, $l);
 
                     
                     $i++;

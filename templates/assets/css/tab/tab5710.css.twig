@@ -1,0 +1,51 @@
+/* Set the standard font-size per sheet */
+.sheet p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*
+#######################################
+Most important!!!!!!!!!
+To fit the line-size to each line and according to font-size
+use p and span and set 1em -> 100% of font-size
+#######################################
+ */
+.sheet p span {
+    line-height: 1em;
+}
+.tab_row{
+    height:{{ tab_form.FieldsHeightBrutto * factor }}px;
+    width: {{ (tab_form.FieldsWidthBrutto * tab_form.AmountOfColumns + tab_form.WidthOfBorder) * factor }}px;
+    margin-top: {{ tab_form.HeightOfBorder * factor }}px;
+    background-color: #f7ca9d;
+    display: flex;
+}
+.tab_column{
+    width: {{ tab_form.FieldsWidthBrutto  * factor  }}px;
+    height: {{ tab_form.FieldsHeightBrutto * factor }}px;
+    background-color: #f7ca9d;
+    position: relative;
+}
+.tab_field {
+    width: {{ tab_form.FieldsWidthNetto * factor }}px;
+    height: {{ tab_form.FieldsHeightNetto * factor }}px;
+    background-color: #ff9933;
+    position: absolute;
+    bottom: 0px;
+    left: {{ tab_form.WidthOfBorder * factor }}px;
+    border: thin solid #653c16;
+    overflow: clip;
+}
+textarea.editor{
+    width: {{ tab_form.FieldsWidthNetto * factor }}px;
+    height: {{ tab_form.FieldsHeightNetto * factor }}px;
+    background-color: #ff9933;
+    resize: none;
+}
+.cke_editable{
+    height: {{ tab_form.FieldsHeightNetto * factor }}px;
+}
+.cke_editable.cke_focus{
+    background-color: #ffffff7d;
+}

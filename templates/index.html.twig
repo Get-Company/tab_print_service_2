@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="de">
 <head>
-    <!-- Required meta tags -->
+    <!-- Required meta tags - index.html.twig -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {% block bootstrap_css %}
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS - index.html.twig -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootswatch/dist/sandstone/bootstrap.min.css">
-
+    <!-- Bootstrap CSS - assets/css/master.css.twig -->
     <style>
         {{ include ('assets/css/master.css.twig') }}
     </style>
@@ -25,7 +25,7 @@
 </head>
 <body>
 {% block body %}
-    <div class="container-fluid" id="chrome">
+    <div class="container-fluid" id="compatible">
         <div class="row">
             <div class="col">
                 {% if tab_form.name %}
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="jumbotron" id="no_chrome">
+    <div class="jumbotron" id="not_compatible">
         <h1 class="display-4">Leider ist Ihr Browser nicht kompatibel</h1>
         <p class="lead">Leider ist Classei Online Druck nicht mit ihrem Browser kompatibel. <br/>Nutzen Sie bitte
             <a target="_blank" href="https://www.google.de/chrome/">Google Chrome</a>,
