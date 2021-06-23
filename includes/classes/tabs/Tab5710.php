@@ -18,7 +18,7 @@ class Tab5710 extends Tab_Print_Service
         $this->setWidthOfSheet(210);
         $this->setHeightOfSheet(316); # 316 Minimale länge um auf 1 Blatt zu bleiben
         $this->setWidthOfBorder(9);
-        $this->setHeightOfBorder(24);
+        $this->setHeightOfBorder(25);
 
         $this->setAmountOfFields(24);
         $this->setAmountOfRows(8);
@@ -42,12 +42,9 @@ class Tab5710 extends Tab_Print_Service
         }
         if($c >= 2)
         {
-            $x += $this->getWidthOfBorder()+$this->getFieldsWidthNetto() * ($c-1);
+            $x += $this->getFieldsWidthBrutto() * ($c-1);
         }
-        if($c >= 3)
-        {
-            $x += $this->getWidthOfBorder() * 2;
-        }
+
 
         # Richtiger X Wert wird zurückgegeben
         return $x;
@@ -56,18 +53,12 @@ class Tab5710 extends Tab_Print_Service
 
     public function getPosY($r, $l = false)
     {
-        # 1. Zeile hat einen Rand + Feld Höhe Brutto - Feldhöhe Netto
-        $y = $this->getHeightOfBorder()+($this->getFieldsHeightBrutto()-$this->getFieldsHeightNetto());
+        # 1. Zeile hat einen Rand 25
+        $y = $this->getHeightOfBorder();
 
-        # Ab 2. Zeile immer ein ganzes Feld Brutto hinzufügen
+        # Ab 2. Zeile ist der Abstand der Felder 2mm mehr
         if($r >= 2) {
-            $y += $this->getFieldsHeightBrutto() * ($r - 1);
-        }
-
-        # Ab 5. Zeile ist ein Offset von 2xRand notwendig - Mitte des Blattes
-        if($r >= 5)
-        {
-            $y += $this->getHeightOfBorder() * 2;
+            $y += ( $this->getFieldsHeightNetto() + ($this->getHeightOfBorder()+1) ) * ($r - 1);
         }
 
         return $y;

@@ -32,19 +32,21 @@ use p and span and set 1em -> 100% of font-size
     height: {{ tab_form.FieldsHeightNetto * factor }}px;
     background-color: #ff9933;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     left: {{ tab_form.WidthOfBorder * factor }}px;
     border: thin solid #653c16;
-    overflow: clip;
 }
 textarea.editor{
     width: {{ tab_form.FieldsWidthNetto * factor }}px;
     height: {{ tab_form.FieldsHeightNetto * factor }}px;
     background-color: #ff9933;
     resize: none;
+    overflow: hidden;
 }
 .cke_editable{
     height: {{ tab_form.FieldsHeightNetto * factor }}px;
+    word-wrap:anywhere; /* Zeilenumbruch bei Firefox erzwingen Firefox */
+    line-height: 1em; /* Richtige Zeilenhöhe je nach Schriftgröße */
 }
 .cke_editable.cke_focus{
     background-color: #ffffff7d;
