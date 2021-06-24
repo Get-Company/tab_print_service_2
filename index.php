@@ -23,6 +23,7 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $tabPrintService = new Tab_Print_Service();
 $tab5810 = new Tab5810();
 $tab7015 = new Tab7015();
+$tab2810 = new Tab2810();
 $tab2910 = new Tab2910();
 $tab5710 = new Tab5710();
 $label4041 = new Label4041();
@@ -58,7 +59,7 @@ if(isset($_GET['sheet']))
  * All the fields are loaded in $fields_array.
  *
  */
-#TODO add html filter to the $_Post. Content of $fields_array is not validatet
+#TODO add html filter to the $_Post. Content of $fields_array is not validated
 $fields_array = null;
 
 if(isset($_POST) && !empty($_POST))
@@ -100,6 +101,7 @@ echo $twig->render($template,[
     'tab_print_service' => $tabPrintService,
     'tab5810' => $tab5810,
     'tab7015' => $tab7015,
+    'tab2810' => $tab2810,
     'tab2910' => $tab2910,
     'tab5710' => $tab5710,
     'label4041' => $label4041,
